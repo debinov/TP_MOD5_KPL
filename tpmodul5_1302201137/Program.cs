@@ -10,7 +10,6 @@ using System.Diagnostics.Contracts;
 
 namespace tpmodul5_1302201137
 {
-
     internal class Program
     {
         static void Main(String[] args)
@@ -21,9 +20,10 @@ namespace tpmodul5_1302201137
             Console.WriteLine("");
             Console.WriteLine("");
 
+
             N.IncreasePlayCount(5);
             N.PrintVideoDetails();
-            
+
         }
 
     }
@@ -36,24 +36,33 @@ namespace tpmodul5_1302201137
 
         public SayaTubeVideo(string title)
         {
+            Contract.Requires(title != null);
+            Contract.Requires(title.Length < 100);
 
             this.title = title;
             Random random_id = new Random();
             id = random_id.Next(0, 100000);
             playCount = 0;
-
         }
 
 
-        
+
         public void IncreasePlayCount(int count)
         {
+            try
+            {
+                if (count >= 10000000) throw new Exception("Input Penambahan Playcount Maksimal 10.000.000!");
+                playCount = playCount + count;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
-            playCount = playCount + count;
 
         }
 
-    
+
         public void PrintVideoDetails()
         {
 
